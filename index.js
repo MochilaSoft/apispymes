@@ -12,8 +12,8 @@ app.use('/api/ciudades', require('./routes/ciudadRoutes'));
 app.use('/api/categorias', require('./routes/categoriaRoutes'));
 app.use('/api/pymes', require('./routes/pymesRoutes'));
 app.use('/api/usuarios', require('./routes/usuarioRoutes'));
-app.use('/api/categorias', require('./routes/suscripcionRoutes'));
-app.use('/api/categorias', require('./routes/usuarioSuscripcionRoutes'));
+app.use('/api/suscripcion', require('./routes/suscripcionRoutes'));
+app.use('/api/usuariosuscripcion', require('./routes/usuarioSuscripcionRoutes'));
 
 // Servidor
 const PORT = process.env.PORT || 3000;
