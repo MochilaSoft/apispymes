@@ -21,7 +21,25 @@ router.get('/:id', (req, res) => {
 
 // Crear un nuevo usuario
 router.post('/', (req, res) => {
-  Usuarios.create(req.body, (err, results) => {
+  const { email, password, confirmPassword, nombre, apellido, telefono, cedula_dni, foto } = req.body;
+
+  // Validar que las contraseñas coincidan
+  if (password !== confirmPassword) {
+    return res.status(400).json({ error: 'Las contraseñas no coinciden' });
+  }
+
+  // Asegurar valores por defecto para los campos NOT NULL
+  const data = {
+    email,
+    password,
+    nombre: nombre || '',
+    apellido: apellido || '',
+    telefono: telefono || '',
+    cedula_dni: cedula_dni || '',
+    foto: foto || ''
+  };
+
+  Usuarios.create(data, (err, results) => {
     if (err) {
       if (err.code === 'ER_DUP_ENTRY') {
         return res.status(409).json({ error: 'Email o cédula ya existe' });
@@ -31,6 +49,7 @@ router.post('/', (req, res) => {
     res.status(201).json({ id: results.insertId });
   });
 });
+
 
 // Actualizar usuario
 router.put('/:id', (req, res) => {
